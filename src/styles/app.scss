@@ -1,0 +1,28 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+h1,h2,h3{
+    color: rgb(150, 58, 58);
+}
+
+body{
+    font-family: 'Lato', sans-serif;
+}
+
+h3 {
+    font-weight: 400;
+    color: rgb(204, 116, 116);
+}
+
+h4{
+    font-weight: 800;
+    color: rgb(224, 151, 40);
+}
+
+@import "./podcast";
+@import "./player";
+@import "./library";
+@import "./nav";
