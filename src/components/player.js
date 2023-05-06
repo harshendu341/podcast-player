@@ -62,17 +62,28 @@ const Player = ({ audioRef, currentPodcast, isPlaying, setIsPlaying, setPodcastI
         playAudio(isPlaying, audioRef);
     };
 
+    //Add styles
+    const trackAnim = {
+        transform: `translateX(${podcastInfo.animationPercentage}%)`
+    }
+
     return(
         <div className="player">
             <div className="time-control">
                 <p>{getTime(podcastInfo.currentTime)}</p>
+                <div style={{background: `linear-gradient(to right, ${currentPodcast.color[0]},${currentPodcast.color[1]})`}} className="track">
                     <input 
-                        min={0} 
-                        max={podcastInfo.duration || 0}
-                        onChange={dragHandler} 
-                        value={podcastInfo.currentTime} 
-                        type="range"
+                            min={0} 
+                            max={podcastInfo.duration || 0}
+                            onChange={dragHandler} 
+                            value={podcastInfo.currentTime} 
+                            type="range"
                     />
+                    <div style={trackAnim} className="animate-track">
+                    
+                    </div>
+                </div>
+                
                 <p>{podcastInfo.duration ? getTime(podcastInfo.duration) : "0:00"}</p>
             </div>
             <div className="play-control">

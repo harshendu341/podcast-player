@@ -18,6 +18,7 @@ function App() {
   const [podcastInfo,setPodcastInfo] = useState({
     currentTime: 0,
     duration: 0,
+    animationPercentage: 0,
   });
 
   const [libraryStatus, setLibraryStatus] = useState(false);
@@ -25,7 +26,12 @@ function App() {
   const timeUpdateHandler = (e) => {
     const current=e.target.currentTime;
     const duration=e.target.duration;
-    setPodcastInfo({...podcastInfo, currentTime: current, duration})
+    //Calculate Percentage
+    const roundedCurrent = Math.round(current);
+    const roundedDuration = Math.round(duration);
+    const animation = Math.round(100*(roundedCurrent/roundedDuration));
+
+    setPodcastInfo({...podcastInfo, currentTime: current, duration, animationPercentage: animation,})
   };
 
   return (
