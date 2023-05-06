@@ -1,3 +1,23 @@
+@media screen and (prefers-reduced-motion: reduce) {
+    .library {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 20rem;
+      height: 100%;
+      background: white;
+      box-shadow: .2rem .2rem 5rem gray;
+      overflow: scroll;
+      transform: translate(-100%);
+      transition: none;
+      opacity: 0;
+  
+      h2 {
+        padding: 2rem;
+      }
+    }
+  }
+
 .library {
     position: fixed;
     top: 0;
@@ -15,11 +35,29 @@
     opacity: 0;
 }
 
+@media screen and (prefers-reduced-motion: reduce) {
+    .library-song {
+      display: flex;
+      align-items: center;
+      padding: 1rem 2rem 1rem 2rem;
+      cursor: pointer;
+      transition: none{
+        width: 30%;
+      }
+  
+      &:hover,
+      &:focus {
+        background: rgb(222, 222, 225);
+      }
+    }
+  }
+
 .library-podcast{
     display: flex;
     align-items: center;
     padding: 1rem 2rem 1rem 2rem;
     cursor: pointer;
+    transition: background 1s ease;
     img {
         width: 30%;
     }
@@ -64,4 +102,10 @@
 .active-library{
     transform: translateX(0%);
     opacity: 1;
+}
+
+@media screen and (max-width: 768px) {
+    .library{
+        width: 100%;
+    }
 }

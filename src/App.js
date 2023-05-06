@@ -46,7 +46,17 @@ function App() {
   };
 
   return (
-    <div className="App">
+    <div className={`App ${libraryStatus ? "library-active" : ""}`}>
+      <div class="ocean" style={{ background: `${currentPodcast.color[0]}` }}>
+        <div
+          class="wave"
+          style={{ background: `${currentPodcast.color[1]}` }}
+        ></div>
+        <div
+          class="wave"
+          style={{ background: `${currentPodcast.color[1]}` }}
+        ></div>
+      </div>
       <Nav libraryStatus={libraryStatus} setLibraryStatus={setLibraryStatus} />
       <Podcast currentPodcast={currentPodcast} />
       <Player

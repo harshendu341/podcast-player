@@ -1,12 +1,12 @@
-import React, {useEffect} from "react";
+import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlay,faAngleLeft,faAngleRight,faPause } from "@fortawesome/free-solid-svg-icons";
 
 const Player = ({ audioRef, currentPodcast, isPlaying, setIsPlaying, setPodcastInfo, podcastInfo, podcasts, setCurrentPodcast, setPodcasts }) => {
     
-    useEffect(() => {
+    const activeLibraryHandler = (nextPrev) => {
         const newPodcasts = podcasts.map((podcast) => {
-            if(podcast.id === currentPodcast.id){
+            if(podcast.id === nextPrev.id){
                 return {
                     ...podcast,
                     active : true,
@@ -20,7 +20,7 @@ const Player = ({ audioRef, currentPodcast, isPlaying, setIsPlaying, setPodcastI
             }
         });
         setPodcasts(newPodcasts); 
-    }, [currentPodcast]);
+    };
 
     //Event Handlers
     const playPodcastHandler = () => {
@@ -49,14 +49,17 @@ const Player = ({ audioRef, currentPodcast, isPlaying, setIsPlaying, setPodcastI
         let currentIndex = podcasts.findIndex((podcast) => podcast.id === currentPodcast.id);
         if(direction === 'skip-forward') {
             await setCurrentPodcast(podcasts[(currentIndex+1) % podcasts.length]);
+            activeLibraryHandler(podcasts[(currentIndex+1) % podcasts.length]);
         }
         if(direction === 'skip-back') {
             if((currentIndex - 1)%podcasts.length === -1){
                 await setCurrentPodcast(podcasts[podcasts.length -1]);
+                activeLibraryHandler(podcasts[podcasts.length -1]);
                 if(isPlaying) audioRef.current.play();
                 return;
             }
             await setCurrentPodcast(podcasts[(currentIndex-1) % podcasts.length]);
+            activeLibraryHandler(podcasts[(currentIndex-1) % podcasts.length]);
         }
         if(isPlaying) audioRef.current.play();
     };

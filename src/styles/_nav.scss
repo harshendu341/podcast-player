@@ -3,6 +3,24 @@ nav {
     display: flex;
     justify-content: space-around;
     align-items: center;
+
+    @media screen and (prefers-reduced-motion: reduce) {
+        button {
+          padding: .5rem;
+          border: none;
+          border: 2px solid rgb(65, 65, 65);
+          background: transparent;
+          cursor: pointer;
+          transition: none;
+    
+          &:hover,
+          &:focus {
+            color: white;
+            background: rgb(65, 65, 65);
+          }
+        }
+      }
+
     button{
         background: transparent;
         border: none;
@@ -15,4 +33,12 @@ nav {
             color: white;
         }
     }
+}
+
+@media screen and (max-width: 768px) {
+    nav {
+        button {
+            z-index: 10;
+        }
+    }    
 }
