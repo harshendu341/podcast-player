@@ -34,6 +34,12 @@ function App() {
     setPodcastInfo({...podcastInfo, currentTime: current, duration, animationPercentage: animation,})
   };
 
+  const podcastEndHandler = async () => {
+    let currentIndex = podcasts.findIndex((podcast) => podcast.id === currentPodcast.id);
+    await setCurrentPodcast(podcasts[(currentIndex+1) % podcasts.length]);
+    if(isPlaying) audioRef.current.play();
+  };
+
   return (
     <div className="App">
       <Nav libraryStatus={libraryStatus} setLibraryStatus={setLibraryStatus} />
@@ -50,7 +56,7 @@ function App() {
         setPodcasts = {setPodcasts}
       />
       <Library audioRef={audioRef} podcasts={podcasts} setCurrentPodcast={setCurrentPodcast} isPlaying={isPlaying} setPodcasts={setPodcasts} libraryStatus={libraryStatus} />
-      <audio onTimeUpdate={timeUpdateHandler} onLoadedMetadata={timeUpdateHandler} ref={audioRef} src={currentPodcast.audio}></audio>
+      <audio onTimeUpdate={timeUpdateHandler} onLoadedMetadata={timeUpdateHandler} ref={audioRef} src={currentPodcast.audio} onEnded={podcastEndHandler} ></audio>
     </div>
   );
 }

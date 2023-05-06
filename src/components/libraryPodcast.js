@@ -1,10 +1,9 @@
 import React from "react";
-import { playAudio } from "../util";
 
 const LibraryPodcast = ({podcast, podcasts, setCurrentPodcast, id, audioRef, isPlaying, setPodcasts}) => {
 
-    const podcastSelectHandler = () => {
-        setCurrentPodcast(podcast);
+    const podcastSelectHandler = async () => {
+        await setCurrentPodcast(podcast);
         //Set active state
         const newPodcasts = podcasts.map((podcast) => {
             if(podcast.id === id){
@@ -22,7 +21,7 @@ const LibraryPodcast = ({podcast, podcasts, setCurrentPodcast, id, audioRef, isP
         });
         setPodcasts(newPodcasts); 
 
-       playAudio(isPlaying, audioRef);    
+        if(isPlaying) audioRef.current.play();    
     };
     
     return(

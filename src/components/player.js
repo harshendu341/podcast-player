@@ -1,7 +1,6 @@
 import React, {useEffect} from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlay,faAngleLeft,faAngleRight,faPause } from "@fortawesome/free-solid-svg-icons";
-import { playAudio } from "../util";
 
 const Player = ({ audioRef, currentPodcast, isPlaying, setIsPlaying, setPodcastInfo, podcastInfo, podcasts, setCurrentPodcast, setPodcasts }) => {
     
@@ -46,20 +45,20 @@ const Player = ({ audioRef, currentPodcast, isPlaying, setIsPlaying, setPodcastI
         setPodcastInfo({...podcastInfo, currentTime: e.target.value});
     };
 
-    const skipTrackHandler = (direction) => {
+    const skipTrackHandler = async (direction) => {
         let currentIndex = podcasts.findIndex((podcast) => podcast.id === currentPodcast.id);
         if(direction === 'skip-forward') {
-            setCurrentPodcast(podcasts[(currentIndex+1) % podcasts.length]);
+            await setCurrentPodcast(podcasts[(currentIndex+1) % podcasts.length]);
         }
         if(direction === 'skip-back') {
             if((currentIndex - 1)%podcasts.length === -1){
-                setCurrentPodcast(podcasts[podcasts.length -1]);
-                playAudio(isPlaying, audioRef);
+                await setCurrentPodcast(podcasts[podcasts.length -1]);
+                if(isPlaying) audioRef.current.play();
                 return;
             }
-            setCurrentPodcast(podcasts[(currentIndex-1) % podcasts.length]);
+            await setCurrentPodcast(podcasts[(currentIndex-1) % podcasts.length]);
         }
-        playAudio(isPlaying, audioRef);
+        if(isPlaying) audioRef.current.play();
     };
 
     //Add styles
