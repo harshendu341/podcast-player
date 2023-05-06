@@ -34,10 +34,15 @@ function App() {
     setPodcastInfo({...podcastInfo, currentTime: current, duration, animationPercentage: animation,})
   };
 
+  const delay = (delayInms) => {
+    return new Promise(resolve => setTimeout(resolve, delayInms));
+  };
+
   const podcastEndHandler = async () => {
     let currentIndex = podcasts.findIndex((podcast) => podcast.id === currentPodcast.id);
-    await setCurrentPodcast(podcasts[(currentIndex+1) % podcasts.length]);
-    if(isPlaying) audioRef.current.play();
+    setCurrentPodcast(podcasts[(currentIndex+1) % podcasts.length]);
+    let delayres = await delay(0);
+    audioRef.current.play();
   };
 
   return (
